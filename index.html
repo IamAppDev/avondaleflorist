@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avondale Florist — Seasonal flowers, arranged daily</title>
+<meta name="description" content="Avondale Florist is a neighborhood flower shop arranging seasonal, locally grown flowers every morning for delivery and pickup.">
+
+<meta name="google-site-verification" content="G-5KHXW9KZDL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#22301D;
+    --paper:#FBF7EE;
+    --paper-dim:#F3EEE1;
+    --moss:#5B6E4F;
+    --moss-deep:#3F4F37;
+    --blush:#E3AFA0;
+    --marigold:#D9A441;
+    --charcoal:#2A2620;
+    --line:rgba(34,48,29,0.16);
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--charcoal);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    margin:0;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  button{font-family:inherit;cursor:pointer;}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px;}
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--moss-deep);
+    outline-offset:3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ---------- For-sale banner ---------- */
+  .sale-banner{
+    background:var(--ink);
+    color:var(--paper);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    padding:11px 20px;
+    text-align:center;
+    font-size:0.88rem;
+    position:relative;
+    flex-wrap:wrap;
+  }
+  .sale-banner strong{font-weight:600;}
+  .sale-banner a{
+    color:var(--paper);
+    border-bottom:1px solid var(--marigold);
+    padding-bottom:1px;
+    font-weight:500;
+  }
+  .sale-banner a:hover{color:var(--marigold);}
+  .sale-banner .close-banner{
+    position:absolute;
+    right:16px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:var(--paper);
+    font-size:1.1rem;
+    line-height:1;
+    padding:4px;
+    opacity:0.7;
+  }
+  .sale-banner .close-banner:hover{opacity:1;}
+  .sale-banner.hidden{display:none;}
+
+  /* ---------- For-sale popup ---------- */
+  .sale-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(34,48,29,0.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    z-index:100;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .sale-overlay.open{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .sale-modal{
+    background:var(--paper);
+    max-width:420px;
+    width:100%;
+    padding:38px;
+    position:relative;
+    border:1px solid var(--line);
+    transform:translateY(10px);
+    transition:transform .25s ease;
+  }
+  .sale-overlay.open .sale-modal{transform:translateY(0);}
+  .sale-modal .close-modal{
+    position:absolute;
+    top:16px;
+    right:16px;
+    background:none;
+    border:none;
+    font-size:1.3rem;
+    line-height:1;
+    color:var(--ink);
+    padding:6px;
+    opacity:0.6;
+  }
+  .sale-modal .close-modal:hover{opacity:1;}
+  .sale-modal .eyebrow{margin-bottom:14px;}
+  .sale-modal h3{font-size:1.5rem; margin-bottom:14px;}
+  .sale-modal p{color:#4A453C; font-size:0.98rem; margin-bottom:24px;}
+  .sale-modal .modal-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(251,247,238,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 32px;
+    max-width:var(--max);
+    margin:0 auto;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Fraunces', serif;
+    font-size:1.28rem;
+    font-weight:500;
+    color:var(--ink);
+  }
+  .logo svg{width:26px;height:26px;flex-shrink:0;}
+  .nav-links{
+    display:flex;
+    gap:34px;
+    align-items:center;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .nav-links a{
+    font-size:0.95rem;
+    color:var(--charcoal);
+    position:relative;
+    padding:4px 0;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:1px;
+    background:var(--moss-deep);
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform .25s ease;
+  }
+  .nav-links a:hover::after{transform:scaleX(1);}
+  .nav-cta{
+    background:var(--ink);
+    color:var(--paper);
+    padding:11px 22px;
+    border-radius:2px;
+    font-size:0.92rem;
+    font-weight:500;
+    white-space:nowrap;
+    transition:background .2s ease;
+  }
+  .nav-cta:hover{background:var(--moss-deep);}
+  .menu-btn{
+    display:none;
+    background:none;
+    border:none;
+    padding:6px;
+  }
+  .menu-btn span{
+    display:block;
+    width:24px;
+    height:2px;
+    background:var(--ink);
+    margin:5px 0;
+    transition:transform .2s ease, opacity .2s ease;
+  }
+  .mobile-panel{
+    display:none;
+    flex-direction:column;
+    gap:0;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-panel.open{display:flex;}
+  .mobile-panel a{
+    padding:16px 32px;
+    border-top:1px solid var(--line);
+    font-size:1rem;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:64px 0 40px;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:48px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-size:0.85rem;
+    color:var(--moss-deep);
+    margin-bottom:18px;
+    font-weight:500;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 3.6rem);
+    line-height:1.06;
+    max-width:15ch;
+  }
+  .hero h1 em{
+    font-style:italic;
+    color:var(--moss-deep);
+  }
+  .hero-sub{
+    margin-top:22px;
+    max-width:46ch;
+    font-size:1.08rem;
+    color:#4A453C;
+  }
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    margin-top:32px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper);
+    padding:14px 26px;
+    border-radius:2px;
+    font-size:0.96rem;
+    font-weight:500;
+    display:inline-block;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .btn-primary:hover{background:var(--moss-deep); transform:translateY(-1px);}
+  .btn-ghost{
+    padding:14px 22px;
+    font-size:0.96rem;
+    font-weight:500;
+    border:1px solid var(--line);
+    border-radius:2px;
+    color:var(--ink);
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .btn-ghost:hover{border-color:var(--ink); background:var(--paper-dim);}
+
+  .hero-art{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    animation:riseIn 1s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes riseIn{
+    from{opacity:0; transform:translateY(18px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .hero-art svg{width:100%; max-width:460px; height:auto;}
+
+  .hero-meta{
+    display:flex;
+    gap:36px;
+    margin-top:52px;
+    padding-top:28px;
+    border-top:1px solid var(--line);
+    flex-wrap:wrap;
+  }
+  .hero-meta div{max-width:220px;}
+  .hero-meta strong{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-size:1.5rem;
+    color:var(--ink);
+    font-weight:500;
+  }
+  .hero-meta span{font-size:0.9rem; color:#5A544A;}
+
+  /* ---------- Section shared ---------- */
+  section{padding:88px 0;}
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    margin-bottom:48px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-size:clamp(1.8rem, 3vw, 2.3rem);
+    max-width:16ch;
+  }
+  .section-head p{
+    max-width:38ch;
+    color:#524C41;
+    font-size:1rem;
+  }
+
+  .divider{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:0;
+  }
+
+  /* ---------- Arrangements ---------- */
+  .bouquets{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .bouquet-card{
+    background:var(--paper);
+    padding:36px 30px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .bouquet-art{
+    height:150px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+  }
+  .bouquet-art svg{height:140px; width:auto;}
+  .bouquet-card h3{font-size:1.3rem;}
+  .bouquet-card p.desc{color:#584F42; font-size:0.95rem; flex-grow:1;}
+  .bouquet-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+  }
+  .bouquet-price{font-family:'Fraunces', serif; font-size:1.15rem; color:var(--ink);}
+  .bouquet-link{
+    font-size:0.88rem;
+    font-weight:500;
+    color:var(--moss-deep);
+    border-bottom:1px solid transparent;
+  }
+  .bouquet-link:hover{border-color:var(--moss-deep);}
+
+  /* ---------- Process ---------- */
+  .process{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .process .section-head h2, .process .eyebrow{color:var(--paper);}
+  .process .section-head p{color:#C9CFC1;}
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+  }
+  .step{
+    border-top:1px solid rgba(251,247,238,0.25);
+    padding-top:22px;
+  }
+  .step .num{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--blush);
+    display:block;
+    margin-bottom:14px;
+  }
+  .step h3{color:var(--paper); font-size:1.2rem; margin-bottom:10px;}
+  .step p{color:#C9CFC1; font-size:0.95rem;}
+
+  /* ---------- Occasions ---------- */
+  .occasions-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .occasion{
+    background:var(--paper);
+    padding:34px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    transition:background .2s ease;
+  }
+  .occasion:hover{background:var(--paper-dim);}
+  .occasion svg{width:34px; height:34px; color:var(--moss-deep);}
+  .occasion h3{font-size:1.08rem; font-weight:500;}
+  .occasion p{font-size:0.88rem; color:#5A5346;}
+
+  /* ---------- About ---------- */
+  .about .wrap{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:64px;
+    align-items:center;
+  }
+  .about-art svg{width:100%; max-width:420px;}
+  .about-copy p{margin-bottom:18px; color:#423D33; font-size:1.02rem;}
+  .about-copy p:last-child{margin-bottom:0;}
+  .signature{
+    margin-top:26px;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--moss-deep);
+  }
+
+  /* ---------- Visit / Newsletter ---------- */
+  .visit{
+    background:var(--paper-dim);
+  }
+  .visit .wrap{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+  }
+  .visit-detail{margin-bottom:26px;}
+  .visit-detail h3{font-size:0.85rem; text-transform:none; color:var(--moss-deep); font-weight:600; margin-bottom:6px; letter-spacing:0.01em; font-family:'Inter',sans-serif;}
+  .visit-detail p{color:#3A362E; font-size:1rem;}
+
+  .newsletter-box{
+    background:var(--paper);
+    border:1px solid var(--line);
+    padding:38px;
+  }
+  .newsletter-box h3{font-size:1.3rem; margin-bottom:10px;}
+  .newsletter-box p{color:#524C41; font-size:0.95rem; margin-bottom:22px;}
+  .newsletter-form{display:flex; gap:10px; flex-wrap:wrap;}
+  .newsletter-form input[type="email"]{
+    flex:1;
+    min-width:180px;
+    padding:13px 14px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    font-family:inherit;
+    font-size:0.95rem;
+    border-radius:2px;
+  }
+  .newsletter-form input[type="email"]:focus{border-color:var(--moss-deep);}
+  .newsletter-form button{
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    padding:13px 22px;
+    border-radius:2px;
+    font-size:0.95rem;
+    font-weight:500;
+    transition:background .2s ease;
+  }
+  .newsletter-form button:hover{background:var(--moss-deep);}
+  .form-note{
+    margin-top:14px;
+    font-size:0.85rem;
+    color:var(--moss-deep);
+    display:none;
+  }
+  .form-note.show{display:block;}
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:56px 0 30px;
+    border-top:1px solid var(--line);
+  }
+  .footer-top{
+    display:flex;
+    justify-content:space-between;
+    gap:40px;
+    flex-wrap:wrap;
+    margin-bottom:44px;
+  }
+  .footer-brand{max-width:280px;}
+  .footer-brand .logo{margin-bottom:14px;}
+  .footer-brand p{font-size:0.92rem; color:#5A5346;}
+  .footer-cols{
+    display:flex;
+    gap:60px;
+    flex-wrap:wrap;
+  }
+  .footer-col h4{
+    font-size:0.85rem;
+    font-weight:600;
+    margin-bottom:14px;
+    color:var(--ink);
+  }
+  .footer-col a, .footer-col p{
+    display:block;
+    font-size:0.9rem;
+    color:#5A5346;
+    margin-bottom:10px;
+  }
+  .footer-col a:hover{color:var(--ink);}
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:0.82rem;
+    color:#8A8474;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 920px){
+    .nav-links{display:none;}
+    .nav-cta{display:none;}
+    .menu-btn{display:block;}
+    .hero .wrap{grid-template-columns:1fr; text-align:left;}
+    .hero-art{order:-1; margin-bottom:8px;}
+    .hero-art svg{max-width:320px;}
+    .bouquets{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr; gap:28px;}
+    .occasions-grid{grid-template-columns:1fr 1fr;}
+    .about .wrap{grid-template-columns:1fr;}
+    .about-art{order:-1;}
+    .visit .wrap{grid-template-columns:1fr;}
+    .footer-top{flex-direction:column;}
+  }
+  @media (max-width: 560px){
+    .wrap{padding:0 20px;}
+    .nav{padding:16px 20px;}
+    section{padding:64px 0;}
+    .occasions-grid{grid-template-columns:1fr;}
+    .hero-meta{gap:24px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sale-banner" id="saleBanner">
+  <span><strong>This website is for sale.</strong> Interested in avondaleflorist.com? Contact me at <a href="mailto:benkoodstone@gmail.com?subject=Inquiry%20about%20avondaleflorist.com">benkoodstone@gmail.com</a>.</span>
+  <button class="close-banner" id="closeBanner" aria-label="Dismiss banner">&times;</button>
+</div>
+
+<div class="sale-overlay" id="saleOverlay" role="dialog" aria-modal="true" aria-labelledby="saleModalTitle">
+  <div class="sale-modal">
+    <button class="close-modal" id="closeModal" aria-label="Close">&times;</button>
+    <p class="eyebrow">This site is for sale</p>
+    <h3 id="saleModalTitle">Own avondaleflorist.com</h3>
+    <p>This design and domain are available. If you're interested in buying this site, reach out and let's talk.</p>
+    <div class="modal-actions">
+      <a href="mailto:benkoodstone@gmail.com?subject=Inquiry%20about%20avondaleflorist.com" class="btn-primary">Email benkoodstone@gmail.com</a>
+      <button class="btn-ghost" id="dismissModal">No thanks</button>
+    </div>
+  </div>
+</div>
+
+<header>
+  <nav class="nav">
+    <a href="#top" class="logo" aria-label="Avondale Florist home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <path d="M12 3c1.8 1.6 2.8 3.4 2.8 5.2 0 1.6-1.2 2.8-2.8 2.8s-2.8-1.2-2.8-2.8C9.2 6.4 10.2 4.6 12 3z"/>
+        <path d="M12 11v10"/>
+        <path d="M12 15c-2.2-.3-3.8-1.6-4.3-3.4"/>
+        <path d="M12 17.5c2-.2 3.5-1.3 4.1-2.9"/>
+      </svg>
+      Avondale Florist
+    </a>
+    <ul class="nav-links">
+      <li><a href="#arrangements">Arrangements</a></li>
+      <li><a href="#occasions">Occasions</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <a href="#arrangements" class="nav-cta">Order flowers</a>
+    <button class="menu-btn" aria-label="Toggle menu" aria-expanded="false" id="menuBtn">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#arrangements">Arrangements</a>
+    <a href="#occasions">Occasions</a>
+    <a href="#about">About</a>
+    <a href="#visit">Visit</a>
+    <a href="#arrangements">Order flowers</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Corner of Avondale &amp; 6th, since 2011</p>
+        <h1>Flowers cut this <em>morning</em>, arranged by hand, out the door by noon.</h1>
+        <p class="hero-sub">We buy in small batches from growers within a day's drive, so what's in the cooler changes with the week. No standing orders of the same six stems — just what's good right now.</p>
+        <div class="hero-actions">
+          <a href="#arrangements" class="btn-primary">See this week's arrangements</a>
+          <a href="#visit" class="btn-ghost">Visit the shop</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <strong>6am</strong>
+            <span>Flowers arrive and get sorted before the shop opens</span>
+          </div>
+          <div>
+            <strong>Same-day</strong>
+            <span>Delivery across Avondale for orders placed before 2pm</span>
+          </div>
+          <div>
+            <strong>14 yrs</strong>
+            <span>Run by the Okafor family on the same corner</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 400 460" fill="none" stroke="#22301D" stroke-width="1.4" stroke-linecap="round">
+          <!-- stems -->
+          <path d="M200 440 C195 360 205 300 198 250"/>
+          <path d="M200 440 C205 360 175 300 160 240" stroke="#5B6E4F"/>
+          <path d="M200 440 C198 350 225 290 235 235" stroke="#5B6E4F"/>
+          <path d="M200 440 C202 370 190 320 150 270" stroke="#5B6E4F" stroke-width="1"/>
+          <path d="M200 440 C199 370 210 320 250 275" stroke="#5B6E4F" stroke-width="1"/>
+          <!-- leaves -->
+          <path d="M180 330 C160 320 150 300 155 285 C172 292 182 310 180 330Z" fill="#5B6E4F" stroke="none" opacity="0.55"/>
+          <path d="M222 320 C244 312 256 294 252 278 C233 284 220 302 222 320Z" fill="#5B6E4F" stroke="none" opacity="0.55"/>
+          <!-- ranunculus (rose) -->
+          <g transform="translate(198,225)">
+            <circle r="34" fill="#E3AFA0" stroke="none" opacity="0.9"/>
+            <circle r="26" fill="none" stroke="#22301D" stroke-width="1"/>
+            <circle r="18" fill="none" stroke="#22301D" stroke-width="1"/>
+            <circle r="10" fill="none" stroke="#22301D" stroke-width="1"/>
+            <circle r="3.2" fill="#22301D" stroke="none"/>
+          </g>
+          <!-- tulip left -->
+          <g transform="translate(160,238)">
+            <path d="M0 -32 C-16 -30 -18 -6 0 6 C18 -6 16 -30 0 -32Z" fill="#D9A441" stroke="#22301D" stroke-width="1" opacity="0.92"/>
+            <path d="M-9 -20 C-13 -8 -10 2 0 6" stroke="#22301D" stroke-width="0.7" fill="none" opacity="0.5"/>
+          </g>
+          <!-- tulip right -->
+          <g transform="translate(236,232)">
+            <path d="M0 -30 C-15 -28 -17 -5 0 6 C17 -5 15 -28 0 -30Z" fill="#E3AFA0" stroke="#22301D" stroke-width="1" opacity="0.92"/>
+          </g>
+          <!-- small blossoms -->
+          <g transform="translate(150,268)">
+            <circle r="5.5" fill="#D9A441" stroke="none"/>
+            <circle cx="10" cy="-4" r="4.5" fill="#D9A441" stroke="none" opacity="0.85"/>
+            <circle cx="-9" cy="6" r="4" fill="#D9A441" stroke="none" opacity="0.7"/>
+          </g>
+          <g transform="translate(252,272)">
+            <circle r="5" fill="#E3AFA0" stroke="none"/>
+            <circle cx="-9" cy="-5" r="4" fill="#E3AFA0" stroke="none" opacity="0.85"/>
+          </g>
+          <!-- twine -->
+          <path d="M180 372 C195 380 205 380 220 372" stroke="#D9A441" stroke-width="2.5" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ARRANGEMENTS -->
+  <section id="arrangements">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>This week's arrangements</h2>
+        <p>Built around what came in fresh Monday. When a bouquet sells out, it's gone until next season — we don't restock from a catalog.</p>
+      </div>
+      <div class="bouquets">
+
+        <div class="bouquet-card">
+          <div class="bouquet-art">
+            <svg viewBox="0 0 140 140" fill="none" stroke="#22301D" stroke-width="1.3">
+              <path d="M70 132 C66 100 74 80 70 55" stroke="#5B6E4F"/>
+              <path d="M70 132 C74 100 60 80 50 60" stroke="#5B6E4F" stroke-width="1"/>
+              <path d="M70 132 C68 105 82 82 90 58" stroke="#5B6E4F" stroke-width="1"/>
+              <g transform="translate(70,50)">
+                <circle r="22" fill="#E3AFA0" stroke="none" opacity="0.9"/>
+                <circle r="15" fill="none" stroke="#22301D"/>
+                <circle r="8" fill="none" stroke="#22301D"/>
+              </g>
+              <g transform="translate(48,64)">
+                <path d="M0 -18 C-9 -16 -10 -3 0 4 C10 -3 9 -16 0 -18Z" fill="#D9A441" stroke="#22301D" stroke-width="0.8"/>
+              </g>
+              <g transform="translate(92,60)">
+                <circle r="10" fill="#5B6E4F" stroke="none" opacity="0.6"/>
+              </g>
+            </svg>
+          </div>
+          <h3>The Avondale Mix</h3>
+          <p class="desc">Garden roses, ranunculus, and whatever herb smells best in the cooler that morning. Our most-ordered bouquet, and it never looks the same twice.</p>
+          <div class="bouquet-row">
+            <span class="bouquet-price">$58</span>
+            <a href="#visit" class="bouquet-link">Order for pickup</a>
+          </div>
+        </div>
+
+        <div class="bouquet-card">
+          <div class="bouquet-art">
+            <svg viewBox="0 0 140 140" fill="none" stroke="#22301D" stroke-width="1.3">
+              <path d="M70 132 C68 100 76 82 70 55" stroke="#5B6E4F"/>
+              <path d="M70 132 C72 105 58 85 55 60" stroke="#5B6E4F" stroke-width="1"/>
+              <g transform="translate(70,50)">
+                <path d="M0 -26 C-13 -24 -15 -4 0 6 C15 -4 13 -24 0 -26Z" fill="#D9A441" stroke="#22301D" stroke-width="1"/>
+              </g>
+              <g transform="translate(52,66)">
+                <path d="M0 -20 C-10 -18 -11 -3 0 5 C11 -3 10 -18 0 -20Z" fill="#D9A441" stroke="#22301D" stroke-width="0.9" opacity="0.85"/>
+              </g>
+              <path d="M85 70 C95 66 100 58 96 50 C86 54 82 64 85 70Z" fill="#5B6E4F" stroke="none" opacity="0.6"/>
+            </svg>
+          </div>
+          <h3>Morning Marigold</h3>
+          <p class="desc">All warm tones — tulips, ranunculus, and sprigs of fennel flower. Cheerful without trying too hard. A good one to send instead of saying it out loud.</p>
+          <div class="bouquet-row">
+            <span class="bouquet-price">$46</span>
+            <a href="#visit" class="bouquet-link">Order for pickup</a>
+          </div>
+        </div>
+
+        <div class="bouquet-card">
+          <div class="bouquet-art">
+            <svg viewBox="0 0 140 140" fill="none" stroke="#22301D" stroke-width="1.3">
+              <path d="M70 132 C67 100 75 84 70 60" stroke="#5B6E4F"/>
+              <path d="M70 132 C74 108 60 88 52 65" stroke="#5B6E4F" stroke-width="1"/>
+              <path d="M70 132 C69 108 82 86 88 62" stroke="#5B6E4F" stroke-width="1"/>
+              <g transform="translate(70,55)">
+                <circle r="18" fill="none" stroke="#22301D"/>
+                <circle r="11" fill="none" stroke="#22301D"/>
+                <circle r="4" fill="#22301D" stroke="none"/>
+              </g>
+              <path d="M45 78 C35 74 30 64 34 56 C46 60 50 70 45 78Z" fill="#5B6E4F" stroke="none" opacity="0.6"/>
+              <path d="M95 76 C105 72 110 62 106 54 C94 58 90 68 95 76Z" fill="#5B6E4F" stroke="none" opacity="0.6"/>
+            </svg>
+          </div>
+          <h3>Greenhouse Quiet</h3>
+          <p class="desc">Mostly foliage — eucalyptus, olive branch, ferns — with just a few white blooms tucked in. For a desk, a shelf, or someone who says they don't like flowers.</p>
+          <div class="bouquet-row">
+            <span class="bouquet-price">$38</span>
+            <a href="#visit" class="bouquet-link">Order for pickup</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>From the flower market to your table, same day</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num">i.</span>
+          <h3>Order by 2pm</h3>
+          <p>Choose a bouquet above, or call the shop and describe the occasion — we'll build something for it.</p>
+        </div>
+        <div class="step">
+          <span class="num">ii.</span>
+          <h3>We cut and arrange</h3>
+          <p>Every order is arranged fresh the same morning, not pulled pre-made from a cooler shelf.</p>
+        </div>
+        <div class="step">
+          <span class="num">iii.</span>
+          <h3>Pickup or local delivery</h3>
+          <p>Grab it from the counter, or we'll hand-deliver within Avondale and the surrounding blocks by evening.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OCCASIONS -->
+  <section id="occasions">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Flowers for the moment</h2>
+        <p>Tell us what it's for and we'll steer the arrangement — these are starting points, not fixed menus.</p>
+      </div>
+      <div class="occasions-grid">
+        <div class="occasion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21c-4-3-8-6.2-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 3.5C20 14.8 16 18 12 21Z"/></svg>
+          <h3>Weddings</h3>
+          <p>Bridal parties, ceremony arches, and reception tables — planned around your date months out.</p>
+        </div>
+        <div class="occasion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2v20M4 8h16M6 14h12"/></svg>
+          <h3>Sympathy</h3>
+          <p>Quiet, standing arrangements delivered to a home or service, usually within the same day.</p>
+        </div>
+        <div class="occasion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+          <h3>Birthdays</h3>
+          <p>Bright, no-occasion-needed bouquets. Add a card and we'll write it out by hand.</p>
+        </div>
+        <div class="occasion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="7" width="18" height="14" rx="1"/><path d="M8 7V4h8v3M3 12h18"/></svg>
+          <h3>Events &amp; offices</h3>
+          <p>Standing weekly orders for lobbies, restaurants, and studios around the neighborhood.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="about-art" aria-hidden="true">
+        <svg viewBox="0 0 340 340" fill="none" stroke="#22301D" stroke-width="1.2">
+          <rect x="10" y="10" width="320" height="320" fill="none" stroke="#22301D" stroke-width="1" opacity="0.15"/>
+          <path d="M170 300 C165 220 178 170 170 110" stroke="#5B6E4F"/>
+          <path d="M170 300 C176 230 150 180 130 130" stroke="#5B6E4F" stroke-width="1"/>
+          <path d="M170 300 C168 235 195 185 210 125" stroke="#5B6E4F" stroke-width="1"/>
+          <g transform="translate(170,100)">
+            <circle r="30" fill="#D9A441" stroke="none" opacity="0.85"/>
+            <circle r="21" fill="none" stroke="#22301D"/>
+            <circle r="12" fill="none" stroke="#22301D"/>
+          </g>
+          <g transform="translate(128,135)">
+            <path d="M0 -22 C-11 -20 -12 -3 0 5 C12 -3 11 -20 0 -22Z" fill="#E3AFA0" stroke="#22301D" stroke-width="0.9"/>
+          </g>
+          <g transform="translate(212,128)">
+            <path d="M0 -20 C-10 -18 -11 -3 0 5 C11 -3 10 -18 0 -20Z" fill="#E3AFA0" stroke="#22301D" stroke-width="0.9"/>
+          </g>
+        </svg>
+      </div>
+      <div class="about-copy">
+        <p class="eyebrow">About the shop</p>
+        <h2 style="margin-bottom:22px;">Started with one bucket of tulips and a folding table</h2>
+        <p>Avondale Florist opened in 2011 when Amara Okafor started selling bouquets from a folding table outside the old hardware store on 6th. The shop moved indoors two years later, but the habit stuck: buy small, buy local, and never let a bouquet sit longer than a day.</p>
+        <p>We still work with three growers within a few hours of the city, which means the shop changes with the seasons — dahlias crowd the counter in September, and by January it's mostly branches, anemones, and whatever's coming up from the greenhouse.</p>
+        <p>Today it's Amara, her son Femi, and two arrangers, all working out of the same corner shop.</p>
+        <p class="signature">— The Okafor family</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section id="visit" class="visit">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Visit or call</p>
+        <h2 style="margin-bottom:30px;">Come see what's in the cooler</h2>
+
+        <div class="visit-detail">
+          <h3>Address</h3>
+          <p>412 Avondale Ave, Unit A · Open on the corner of 6th</p>
+        </div>
+        <div class="visit-detail">
+          <h3>Hours</h3>
+          <p>Tue–Sat, 9am–6pm · Sun 10am–2pm · Closed Mondays</p>
+        </div>
+        <div class="visit-detail">
+          <h3>Phone</h3>
+          <p>(000) 000-0000</p>
+        </div>
+        <div class="visit-detail">
+          <h3>Delivery</h3>
+          <p>Free within Avondale for orders over $50, placed before 2pm</p>
+        </div>
+      </div>
+
+      <div class="newsletter-box">
+        <h3>Know what's fresh each week</h3>
+        <p>A short note most Mondays — what came in, what's almost gone, and one arrangement idea. No spam, easy to leave.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <label for="email" class="visually-hidden" style="position:absolute;left:-9999px;">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@email.com" required>
+          <button type="submit">Subscribe</button>
+        </form>
+        <p class="form-note" id="formNote">Thanks — you're on the list. Look for the first note on Monday.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#top" class="logo" aria-label="Avondale Florist home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+            <path d="M12 3c1.8 1.6 2.8 3.4 2.8 5.2 0 1.6-1.2 2.8-2.8 2.8s-2.8-1.2-2.8-2.8C9.2 6.4 10.2 4.6 12 3z"/>
+            <path d="M12 11v10"/>
+          </svg>
+          Avondale Florist
+        </a>
+        <p>A neighborhood flower shop on the corner of Avondale &amp; 6th, arranging seasonal flowers since 2011.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <a href="#arrangements">This week's arrangements</a>
+          <a href="#occasions">By occasion</a>
+          <a href="#about">Our story</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p>(000) 000-0000</p>
+          <p>benkoodstone@gmail.com</p>
+          <p>412 Avondale Ave, Unit A</p>
+        </div>
+        <div class="footer-col">
+          <h4>Follow</h4>
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Avondale Florist. All arrangements made to order.</span>
+      <span>Site by Avondale Florist</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // For-sale popup: show once per session, shortly after page load
+  const saleOverlay = document.getElementById('saleOverlay');
+  const closeModal = document.getElementById('closeModal');
+  const dismissModal = document.getElementById('dismissModal');
+
+  function openSaleModal(){
+    saleOverlay.classList.add('open');
+  }
+  function closeSaleModal(){
+    saleOverlay.classList.remove('open');
+    sessionStorage.setItem('saleModalSeen', '1');
+  }
+  if(!sessionStorage.getItem('saleModalSeen')){
+    setTimeout(openSaleModal, 1200);
+  }
+  closeModal.addEventListener('click', closeSaleModal);
+  dismissModal.addEventListener('click', closeSaleModal);
+  saleOverlay.addEventListener('click', (e) => {
+    if(e.target === saleOverlay) closeSaleModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && saleOverlay.classList.contains('open')) closeSaleModal();
+  });
+
+  // Dismiss the for-sale banner
+  const saleBanner = document.getElementById('saleBanner');
+  const closeBanner = document.getElementById('closeBanner');
+  closeBanner.addEventListener('click', () => {
+    saleBanner.classList.add('hidden');
+  });
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const mobilePanel = document.getElementById('mobilePanel');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobilePanel.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobilePanel.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobilePanel.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Newsletter form (no backend — just a friendly confirmation)
+  const form = document.getElementById('newsletterForm');
+  const note = document.getElementById('formNote');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    note.classList.add('show');
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
