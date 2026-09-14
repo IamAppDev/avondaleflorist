@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5KHXW9KZDL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5KHXW9KZDL');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Avondale Florist — Seasonal flowers, arranged daily</title>
 <meta name="description" content="Avondale Florist is a neighborhood flower shop arranging seasonal, locally grown flowers every morning for delivery and pickup.">
 
-<meta name="google-site-verification" content="G-5KHXW9KZDL">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -586,7 +594,7 @@
 <body>
 
 <div class="sale-banner" id="saleBanner">
-  <span><strong>This website is for sale.</strong> Interested in avondaleflorist.com? Contact me at <a href="mailto:benkoodstone@gmail.com?subject=Inquiry%20about%20avondaleflorist.com">benkoodstone@gmail.com</a>.</span>
+  <span><strong>This website is for sale.</strong> Interested in avondaleflorist.com? Contact me at <a href="mailto:benkoodstone@gmail.com?subject=Inquiry%20about%20avondaleflorist.com">benkoodstone@gmail.com</a></span>
   <button class="close-banner" id="closeBanner" aria-label="Dismiss banner">&times;</button>
 </div>
 
@@ -878,8 +886,8 @@
       <div class="about-copy">
         <p class="eyebrow">About the shop</p>
         <h2 style="margin-bottom:22px;">Started with one bucket of tulips and a folding table</h2>
-        <p>Avondale Florist opened in 2011 when Amara Okafor started selling bouquets from a folding table outside the old hardware store on 6th. The shop moved indoors two years later, but the habit stuck: buy small, buy local, and never let a bouquet sit longer than a day.</p>
-        <p>We still work with three growers within a few hours of the city, which means the shop changes with the seasons — dahlias crowd the counter in September, and by January it's mostly branches, anemones, and whatever's coming up from the greenhouse.</p>
+        <p>Avondale Florist opened in 2011 when Amara Okafor started selling bouquets from a folding table outside the old hardware store on 6th. The shop moved indoors two years later, but the high ceilings and big storefront windows stayed the same.</p>
+        <p>We still work with three growers within a few hours of the city, which means the shop changes with the seasons — dahlias crowd the counter in September, and by January it's mostly branches and bulbs.</p>
         <p>Today it's Amara, her son Femi, and two arrangers, all working out of the same corner shop.</p>
         <p class="signature">— The Okafor family</p>
       </div>
@@ -1001,24 +1009,30 @@
   // Mobile menu toggle
   const menuBtn = document.getElementById('menuBtn');
   const mobilePanel = document.getElementById('mobilePanel');
+
   menuBtn.addEventListener('click', () => {
     const isOpen = mobilePanel.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuBtn.setAttribute('aria-expanded', isOpen);
   });
-  mobilePanel.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
+
+  // Close mobile menu when a link is clicked
+  mobilePanel.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
       mobilePanel.classList.remove('open');
       menuBtn.setAttribute('aria-expanded', 'false');
     });
   });
 
-  // Newsletter form (no backend — just a friendly confirmation)
-  const form = document.getElementById('newsletterForm');
-  const note = document.getElementById('formNote');
-  form.addEventListener('submit', (e) => {
+  // Newsletter form submission
+  const newsletterForm = document.getElementById('newsletterForm');
+  const formNote = document.getElementById('formNote');
+  const emailInput = document.getElementById('email');
+
+  newsletterForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    note.classList.add('show');
-    form.reset();
+    formNote.classList.add('show');
+    emailInput.value = '';
+    setTimeout(() => formNote.classList.remove('show'), 4000);
   });
 </script>
 
